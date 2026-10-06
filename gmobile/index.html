@@ -110,7 +110,13 @@ function render(){
   const app = document.getElementById('app');
   const grados = ['Sin educación formal','Secundaria','Técnico','Técnico trunco','Universitario','Universitario trunco'];
   const experiencias = ['No tiene','Menor a 3 meses','3 a 6 meses','6 meses a 1 año','Más de un año','Dos años a más'];
-  const distritos = ['Jesús María','Lince','San Isidro','Magdalena','Pueblo Libre','Breña','San Miguel','Surquillo','Miraflores','Lima Cercado','Santiago de Surco','San Borja','La Victoria','Rímac','Barranco','Otro'];
+  const distritos = [
+  'Ancón','Ate','Barranco','Breña','Callao (Cercado)','Carabayllo','Carmen de la Legua','Chaclacayo','Chorrillos','Cieneguilla',
+  'Comas','El Agustino','Independencia','Jesús María','La Molina','La Perla','La Punta','La Victoria','Lima (Cercado)','Lince',
+  'Los Olivos','Lurigancho-Chosica','Lurín','Magdalena del Mar','Mi Perú','Miraflores','Pachacámac','Pucusana','Pueblo Libre','Puente Piedra',
+  'Punta Hermosa','Punta Negra','Rímac','San Bartolo','San Borja','San Isidro','San Juan de Lurigancho','San Juan de Miraflores','San Luis','San Martín de Porres',
+  'San Miguel','Santa Anita','Santa María del Mar','Santa Rosa','Santiago de Surco','Surquillo','Villa El Salvador','Villa María del Triunfo','Ventanilla','Otro'
+];
 
   app.innerHTML = `
   <div class="intro-card">
