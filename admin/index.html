@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel Admin — Postulantes</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f5f5f7;color:#1f2937;min-height:100vh;line-height:1.5}
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e293b,#0f172a);padding:20px}
+.login-card{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center}
+.login-card .icon{font-size:54px;margin-bottom:12px;display:block}
+.login-card h1{font-size:22px;color:#0f172a;margin-bottom:6px;font-weight:800}
+.login-card p{color:#6b7280;font-size:13px;margin-bottom:24px}
+.login-card input{width:100%;padding:14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:15px;font-family:inherit;margin-bottom:12px;text-align:center;letter-spacing:4px}
+.login-card input:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.login-card button{width:100%;padding:14px;border:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.login-card .error{color:#dc2626;font-size:13px;margin-top:8px;font-weight:600;display:none}
+.login-card .error.show{display:block}
+.app{display:none;min-height:100vh}
+.app.visible{display:block}
+.topbar{background:linear-gradient(135deg,#1e293b,#0f172a);color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:10}
+.topbar h1{font-size:18px;font-weight:800}
+.topbar .sub{font-size:12px;color:#94a3b8;margin-top:2px}
+.topbar .logout{background:rgba(255,255,255,.1);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.wrap{max-width:1400px;margin:0 auto;padding:20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}
+.stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.stat-card .lbl{font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.stat-card .num{font-size:28px;font-weight:800;color:#0f172a}
+.stat-card .det{font-size:11px;color:#9ca3af;margin-top:2px}
+.filters{background:#fff;border-radius:14px;padding:16px;margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.filters select,.filters input{padding:9px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;background:#fafafa;color:#1f2937;min-width:140px}
+.filters select:focus,.filters input:focus{outline:none;border-color:#2563eb;background:#fff}
+.filters .btn{padding:9px 16px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;background:#2563eb;color:#fff}
+.filters .btn.ghost{background:#f3f4f6;color:#374151}
+.table-wrap{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:1100px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #f3f4f6;white-space:nowrap}
+th{background:#f9fafb;font-weight:700;color:#374151;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+tr:hover td{background:#fafbfc}
+.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;text-transform:uppercase}
+.badge.gmobile{background:#dbeafe;color:#1e40af}
+.badge.safri{background:#fce7f3;color:#9d174d}
+.badge.minimarket{background:#d1fae5;color:#065f46}
+.badge.nuevo{background:#fef3c7;color:#92400e}
+.badge.entrevista{background:#dbeafe;color:#1e40af}
+.badge.contratado{background:#d1fae5;color:#065f46}
+.badge.descartado{background:#f3f4f6;color:#6b7280}
+.btn-view{padding:5px 10px;border:1px solid #e5e7eb;background:#fff;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;color:#2563eb;font-family:inherit}
+.btn-view:hover{background:#eff6ff;border-color:#2563eb}
+.empty{text-align:center;padding:60px 20px;color:#9ca3af;font-size:14px}
+.empty .icon{font-size:64px;margin-bottom:12px;display:block;opacity:.5}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:100;overflow-y:auto}
+.modal.open{display:flex}
+.modal-card{background:#fff;border-radius:16px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
+.modal-head{padding:20px 24px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;border-radius:16px 16px 0 0}
+.modal-head h2{font-size:16px;color:#0f172a;font-weight:800}
+.modal-head .close{background:#f3f4f6;border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:#6b7280}
+.modal-body{padding:20px 24px}
+.modal-body .row{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #f9fafb;font-size:13px}
+.modal-body .row:last-child{border-bottom:none}
+.modal-body .row .k{font-weight:700;color:#6b7280}
+.modal-body .row .v{color:#1f2937}
+.modal-foot{padding:16px 24px;border-top:1px solid #f3f4f6;display:flex;gap:10px;justify-content:flex-end;background:#f9fafb;border-radius:0 0 16px 16px}
+.modal-foot select{padding:9px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;background:#fff}
+.modal-foot button{padding:9px 18px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.modal-foot .save{background:#2563eb;color:#fff}
+.loading{text-align:center;padding:60px 20px;color:#6b7280}
+.loading .spinner{width:40px;height:40px;border:4px solid #e5e7eb;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <span class="icon">🔐</span>
+    <h1>Panel Admin</h1>
+    <p>Ingresa la clave para ver las postulaciones</p>
+    <input type="password" id="pwd" placeholder="••••••••" autocomplete="off">
+    <button onclick="login()">Entrar</button>
+    <div class="error" id="loginError">Clave incorrecta</div>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <div class="topbar">
+    <div>
+      <h1>📋 Panel de Postulantes</h1>
+      <div class="sub" id="lastUpdate">Cargando...</div>
+    </div>
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+  </div>
+  <div class="wrap">
+    <div class="stats" id="stats"></div>
+    <div class="filters">
+      <select id="fNegocio" onchange="applyFilters()">
+        <option value="">Todos los negocios</option>
+        <option value="G Mobile">G Mobile</option>
+        <option value="Safri">Safri</option>
+        <option value="Mini Market">Mini Market</option>
+      </select>
+      <select id="fJornada" onchange="applyFilters()">
+        <option value="">Toda jornada</option>
+        <option value="Full time">Full time</option>
+        <option value="Part time">Part time</option>
+      </select>
+      <select id="fEstado" onchange="applyFilters()">
+        <option value="">Todos los estados</option>
+        <option value="Nuevo">Nuevo</option>
+        <option value="Entrevista">Entrevista</option>
+        <option value="Contratado">Contratado</option>
+        <option value="Descartado">Descartado</option>
+      </select>
+      <select id="fDistrito" onchange="applyFilters()">
+        <option value="">Todos los distritos</option>
+      </select>
+      <input type="text" id="fBuscar" placeholder="Buscar por nombre o DNI..." oninput="applyFilters()">
+      <button class="btn ghost" onclick="clearFilters()">Limpiar</button>
+      <button class="btn" onclick="exportCSV()">⬇️ CSV</button>
+      <button class="btn ghost" onclick="loadData()">🔄 Recargar</button>
+    </div>
+    <div class="table-wrap" id="tableWrap">
+      <div class="loading"><div class="spinner"></div>Cargando postulantes...</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="modalTitle">Detalle</h2>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot">
+      <select id="modalEstado">
+        <option value="Nuevo">Nuevo</option>
+        <option value="Entrevista">Entrevista</option>
+        <option value="Contratado">Contratado</option>
+        <option value="Descartado">Descartado</option>
+      </select>
+      <button class="save" onclick="saveEstado()">Guardar estado</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN_PASSWORD = 'AdminHenry2024*';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzkTirQ-fxTjkF60SPk86Gf5sufZjIwLNMM7yYTd8QMUyTHfTK-QqRHlSegyllspJFHGw/exec';
+const STORAGE_SESSION = 'admin_session_ok';
+
+let DATA = [];
+let HEADERS = [];
+let currentRowIndex = null;
+
+function login(){
+  const pwd = document.getElementById('pwd').value;
+  if(pwd === ADMIN_PASSWORD){
+    sessionStorage.setItem(STORAGE_SESSION, '1');
+    showApp();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+    document.getElementById('pwd').value = '';
+  }
+}
+function logout(){sessionStorage.removeItem(STORAGE_SESSION);location.reload();}
+function showApp(){
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  loadData();
+}
+document.getElementById('pwd').addEventListener('keydown', e=>{if(e.key==='Enter')login();});
+
+async function loadData(){
+  const wrap = document.getElementById('tableWrap');
+  wrap.innerHTML = '<div class="loading"><div class="spinner"></div>Cargando postulantes...</div>';
+  try{
+    const res = await fetch(GOOGLE_SHEET_URL, {method:'GET'});
+    const json = await res.json();
+    if(!json.ok) throw new Error(json.error || 'Error al cargar');
+    const all = json.data || [];
+    if(all.length < 2){
+      DATA = [];
+      HEADERS = all[0] || [];
+    } else {
+      HEADERS = all[0];
+      DATA = all.slice(1).map(row=>{
+        const obj = {};
+        HEADERS.forEach((h,i)=>{obj[h] = row[i] || '';});
+        return obj;
+      });
+    }
+    document.getElementById('lastUpdate').textContent = `Actualizado: ${new Date().toLocaleString('es-PE')} · ${DATA.length} postulantes`;
+    renderStats();
+    renderDistritos();
+    applyFilters();
+  }catch(e){
+    console.error(e);
+    wrap.innerHTML = `<div class="empty"><span class="icon">⚠️</span><b>No se pudieron cargar los datos</b><br><br>${e.message}</div>`;
+  }
+}
+
+function renderStats(){
+  const total = DATA.length;
+  const nuevos = DATA.filter(r=>r.Estado==='Nuevo').length;
+  const entrevista = DATA.filter(r=>r.Estado==='Entrevista').length;
+  const contratados = DATA.filter(r=>r.Estado==='Contratado').length;
+  const gmobile = DATA.filter(r=>r.Negocio==='G Mobile').length;
+  const safri = DATA.filter(r=>r.Negocio==='Safri').length;
+  const minimarket = DATA.filter(r=>r.Negocio==='Mini Market').length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><div class="lbl">Total</div><div class="num">${total}</div><div class="det">postulantes</div></div>
+    <div class="stat-card"><div class="lbl">Nuevos</div><div class="num" style="color:#d97706">${nuevos}</div><div class="det">por revisar</div></div>
+    <div class="stat-card"><div class="lbl">En entrevista</div><div class="num" style="color:#2563eb">${entrevista}</div><div class="det">en proceso</div></div>
+    <div class="stat-card"><div class="lbl">Contratados</div><div class="num" style="color:#059669">${contratados}</div><div class="det">ya trabajando</div></div>
+    <div class="stat-card"><div class="lbl">G Mobile</div><div class="num" style="color:#1e40af">${gmobile}</div><div class="det">postulaciones</div></div>
+    <div class="stat-card"><div class="lbl">Safri</div><div class="num" style="color:#9d174d">${safri}</div><div class="det">postulaciones</div></div>
+    <div class="stat-card"><div class="lbl">Mini Market</div><div class="num" style="color:#065f46">${minimarket}</div><div class="det">postulaciones</div></div>`;
+}
+
+function renderDistritos(){
+  const distritos = [...new Set(DATA.map(r=>r.Distrito).filter(Boolean))].sort();
+  const sel = document.getElementById('fDistrito');
+  const val = sel.value;
+  sel.innerHTML = '<option value="">Todos los distritos</option>' + distritos.map(d=>`<option value="${d}" ${val===d?'selected':''}>${d}</option>`).join('');
+}
+
+function applyFilters(){
+  const fNegocio = document.getElementById('fNegocio').value;
+  const fJornada = document.getElementById('fJornada').value;
+  const fEstado = document.getElementById('fEstado').value;
+  const fDistrito = document.getElementById('fDistrito').value;
+  const fBuscar = document.getElementById('fBuscar').value.toLowerCase().trim();
+  let filtered = DATA.filter(r=>{
+    if(fNegocio && r.Negocio !== fNegocio) return false;
+    if(fJornada && r.Jornada !== fJornada) return false;
+    if(fEstado && r.Estado !== fEstado) return false;
+    if(fDistrito && r.Distrito !== fDistrito) return false;
+    if(fBuscar){
+      const txt = `${r.Nombres||''} ${r['Apellido Paterno']||''} ${r['Apellido Materno']||''} ${r['N° Doc']||''} ${r.WhatsApp||''}`.toLowerCase();
+      if(!txt.includes(fBuscar)) return false;
+    }
+    return true;
+  });
+  renderTable(filtered);
+}
+
+function renderTable(rows){
+  const wrap = document.getElementById('tableWrap');
+  if(rows.length === 0){
+    wrap.innerHTML = '<div class="empty"><span class="icon">📭</span>No hay postulantes con los filtros aplicados</div>';
+    return;
+  }
+  wrap.innerHTML = `<table><thead><tr>
+    <th>Fecha</th><th>Negocio</th><th>Nombre</th><th>Edad</th><th>Distrito</th>
+    <th>WhatsApp</th><th>Jornada</th><th>Horario</th><th>Pretensión</th><th>Estado</th><th></th>
+  </tr></thead><tbody>
+    ${rows.map(r=>{
+      const idx = DATA.indexOf(r);
+      const nombre = `${r.Nombres||''} ${r['Apellido Paterno']||''} ${r['Apellido Materno']||''}`.trim();
+      const fecha = r.Fecha ? new Date(r.Fecha).toLocaleDateString('es-PE') : '-';
+      const negocioClass = (r.Negocio||'').toLowerCase().replace(/\s+/g,'');
+      const estadoClass = (r.Estado||'nuevo').toLowerCase();
+      return `<tr>
+        <td>${fecha}</td>
+        <td><span class="badge ${negocioClass}">${r.Negocio||'-'}</span></td>
+        <td><b>${nombre||'-'}</b></td>
+        <td>${r.Edad||'-'}</td>
+        <td>${r.Distrito||'-'}</td>
+        <td>${r.WhatsApp||'-'}</td>
+        <td>${r.Jornada||'-'}</td>
+        <td>${r.Horario||'-'}</td>
+        <td>S/ ${r['Pretensión']||'-'}</td>
+        <td><span class="badge ${estadoClass}">${r.Estado||'Nuevo'}</span></td>
+        <td><button class="btn-view" onclick="openModal(${idx})">Ver</button></td>
+      </tr>`;
+    }).join('')}
+  </tbody></table>`;
+}
+
+function clearFilters(){
+  document.getElementById('fNegocio').value = '';
+  document.getElementById('fJornada').value = '';
+  document.getElementById('fEstado').value = '';
+  document.getElementById('fDistrito').value = '';
+  document.getElementById('fBuscar').value = '';
+  applyFilters();
+}
+
+function openModal(idx){
+  currentRowIndex = idx;
+  const r = DATA[idx];
+  const nombre = `${r.Nombres||''} ${r['Apellido Paterno']||''} ${r['Apellido Materno']||''}`.trim();
+  document.getElementById('modalTitle').textContent = nombre || 'Postulante';
+  document.getElementById('modalEstado').value = r.Estado || 'Nuevo';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="row"><span class="k">Negocio</span><span class="v">${r.Negocio||'-'}</span></div>
+    <div class="row"><span class="k">Fecha</span><span class="v">${r.Fecha ? new Date(r.Fecha).toLocaleString('es-PE') : '-'}</span></div>
+    <div class="row"><span class="k">Documento</span><span class="v">${r['Tipo Doc']||''} ${r['N° Doc']||''}</span></div>
+    <div class="row"><span class="k">Nombre</span><span class="v"><b>${nombre}</b></span></div>
+    <div class="row"><span class="k">Género</span><span class="v">${r.Género||'-'}</span></div>
+    <div class="row"><span class="k">Edad</span><span class="v">${r.Edad||'-'} años</span></div>
+    <div class="row"><span class="k">Distrito</span><span class="v">${r.Distrito||'-'}</span></div>
+    <div class="row"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/51${String(r.WhatsApp||'').replace(/\D/g,'')}" target="_blank" style="color:#25d366;font-weight:700;text-decoration:none">📱 ${r.WhatsApp||'-'} (abrir chat)</a></span></div>
+    <div class="row"><span class="k">Correo</span><span class="v">${r.Correo||'-'}</span></div>
+    <div class="row"><span class="k">Grado</span><span class="v">${r.Grado||'-'}</span></div>
+    <div class="row"><span class="k">Estudiando</span><span class="v">${r.Estudiando||'-'}</span></div>
+    <div class="row"><span class="k">Hijos &lt; edad</span><span class="v">${r.Hijos||'-'}</span></div>
+    <div class="row"><span class="k">Jornada</span><span class="v"><b>${r.Jornada||'-'}</b></span></div>
+    <div class="row"><span class="k">Horario</span><span class="v">${r.Horario||'-'}</span></div>
+    <div class="row"><span class="k">Experiencia</span><span class="v">${r.Experiencia||'-'}</span></div>
+    <div class="row"><span class="k">Pretensión</span><span class="v"><b>S/ ${r['Pretensión']||'-'}</b></span></div>`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');currentRowIndex=null;}
+document.getElementById('modal').addEventListener('click', e=>{if(e.target.id==='modal')closeModal();});
+
+async function saveEstado(){
+  if(currentRowIndex === null) return;
+  const nuevoEstado = document.getElementById('modalEstado').value;
+  const rowNumber = currentRowIndex + 2;
+  try{
+    await fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'text/plain'},
+      body: JSON.stringify({action:'updateEstado', row: rowNumber, estado: nuevoEstado})
+    });
+    DATA[currentRowIndex].Estado = nuevoEstado;
+    closeModal();
+    renderStats();
+    applyFilters();
+  }catch(e){ alert('Error al guardar: '+e.message); }
+}
+
+function exportCSV(){
+  if(DATA.length === 0){ alert('No hay datos para exportar.'); return; }
+  const cols = HEADERS.filter(h=>h!=='');
+  const csv = [cols.join(',')].concat(DATA.map(r=> cols.map(c=> `"${String(r[c]??'').replace(/"/g,'""')}"`).join(','))).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'postulantes_'+Date.now()+'.csv';
+  a.click();
+}
+
+if(sessionStorage.getItem(STORAGE_SESSION) === '1'){ showApp(); }
+</script>
+</body>
+</html>
