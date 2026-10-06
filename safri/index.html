@@ -78,7 +78,7 @@ const CONFIG = {
 };
 const CFG = CONFIG[BUSINESS];
 const STORE_WHATSAPP = '51985659774';
-
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzkTirQ-fxTjkF60SPk86Gf5sufZjIwLNMM7yYTd8QMUyTHfTK-QqRHlSegyllspJFHGw/exec';
 document.documentElement.style.setProperty('--primary', CFG.primary);
 document.documentElement.style.setProperty('--primary-dark', CFG.primaryDark);
 document.documentElement.style.setProperty('--primary-soft', CFG.primarySoft);
@@ -264,6 +264,15 @@ function enviarFormulario(){
   }
   errBox.classList.remove('show');
   const registro = {...F, fecha:new Date().toISOString(), negocio:CFG.name};
+  // Enviar a Google Sheet
+try{
+  fetch(GOOGLE_SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain'},
+    body: JSON.stringify(registro)
+  });
+}catch(e){ console.warn('Sheet:', e); }
   try{const l=JSON.parse(localStorage.getItem(CFG.storage)||'[]');l.push(registro);localStorage.setItem(CFG.storage,JSON.stringify(l));}catch(e){}
 
   const nombreCompleto = `${F.apPaterno} ${F.apMaterno}, ${F.nombres}`;
