@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Formulario de Postulante — G Mobile</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:#f5f5f7;color:#1f2937;line-height:1.5;
+  min-height:100vh;padding:0 0 40px;
+}
+.header{
+  background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;
+  padding:24px 20px;text-align:center;
+}
+.header .brand{
+  font-size:11px;font-weight:800;letter-spacing:2px;opacity:.85;margin-bottom:6px;
+  text-transform:uppercase;
+}
+.header h1{font-size:20px;font-weight:800;margin-bottom:6px}
+.header p{font-size:13px;opacity:.9}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+.intro-card{
+  background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);font-size:13px;color:#4b5563;line-height:1.6;
+}
+.intro-card strong{color:#1f2937}
+.section{
+  background:#fff;border-radius:14px;padding:6px 0;margin-bottom:14px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden;
+}
+.field{padding:16px 20px;border-bottom:1px solid #f3f4f6}
+.field:last-child{border-bottom:none}
+.field label.qlabel{
+  display:block;font-size:13px;font-weight:700;color:#1f2937;
+  margin-bottom:10px;letter-spacing:.2px;
+}
+.field label.qlabel .req{color:#dc2626;margin-left:2px}
+.field input[type=text],
+.field input[type=email],
+.field input[type=tel],
+.field input[type=number],
+.field select{
+  width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;
+  font-size:15px;font-family:inherit;background:#fafafa;color:#1f2937;
+  transition:.15s;
+}
+.field input:focus,.field select:focus{
+  outline:none;border-color:#2563eb;background:#fff;
+  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border:1.5px solid #e5e7eb;border-radius:10px;cursor:pointer;
+  font-size:14px;background:#fafafa;transition:.15s;user-select:none;
+}
+.opt:active{transform:scale(.99)}
+.opt.sel{border-color:#2563eb;background:#dbeafe;font-weight:600;color:#1e40af}
+.opt input{display:none}
+.opt .radio{
+  width:20px;height:20px;border:2px solid #d1d5db;border-radius:50%;
+  flex-shrink:0;position:relative;transition:.15s;
+}
+.opt.sel .radio{border-color:#2563eb;background:#2563eb}
+.opt.sel .radio::after{
+  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:8px;height:8px;background:#fff;border-radius:50%;
+}
+.schedule-group{margin-top:12px;padding:12px 14px;background:#f0f9ff;border-radius:10px;border:1px dashed #93c5fd}
+.schedule-group .glabel{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.schedule-group .opt{background:#fff}
+.schedule-group .opt.sel{background:#dbeafe}
+.submit-area{position:sticky;bottom:0;padding:14px 0 0;background:linear-gradient(to top,#f5f5f7 60%,rgba(245,245,247,0))}
+.btn{
+  width:100%;padding:16px;border:none;border-radius:12px;font-size:16px;
+  font-weight:700;cursor:pointer;transition:.15s;font-family:inherit;
+  background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;
+  box-shadow:0 4px 14px rgba(37,99,235,.35);
+}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.err{
+  background:#fee2e2;color:#991b1b;padding:12px 14px;border-radius:10px;
+  font-size:13px;font-weight:600;margin-bottom:12px;display:none;
+  border-left:4px solid #ef4444;
+}
+.err.show{display:block}
+.footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 16px;line-height:1.6}
+.footer a{color:#2563eb;text-decoration:none}
+/* Éxito */
+.success{
+  background:#fff;border-radius:16px;padding:32px 24px;text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.success-icon{font-size:72px;line-height:1;margin-bottom:12px;display:inline-block}
+.success h2{font-size:20px;color:#065f46;margin-bottom:8px}
+.success p{font-size:14px;color:#6b7280;margin-bottom:20px}
+.success .btn-wa{
+  background:#25d366;font-size:16px;padding:16px;
+  box-shadow:0 4px 14px rgba(37,211,102,.35);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">G MOBILE — JESÚS MARÍA</div>
+  <h1>Formulario de Postulante</h1>
+  <p>Completa tus datos para iniciar el proceso</p>
+</div>
+
+<div class="wrap" id="app"></div>
+
+<div class="footer" id="footer">
+  🔒 Tus datos están protegidos y solo se usarán para el proceso de selección.<br>
+  G Mobile · Jesús María, Lima
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN
+   ============================================================ */
+const STORE_WHATSAPP = '51985659774';   // ← Tu WhatsApp con código 51
+const NOMBRE_NEGOCIO  = 'G Mobile';      // ← Nombre del negocio
+const STORAGE_KEY     = 'postulantes_form_gmobile';
+
+/* Opciones de jornada laboral */
+const JORNADAS = {
+  'Full time':['9:00 a 18:00 (1 h refrigerio)','14:00 a 22:00'],
+  'Part time':['10:00 a 14:00','18:00 a 22:00']
+};
+
+/* ============================================================
+   ESTADO
+   ============================================================ */
+let F = {
+  tipoDoc:'', numDoc:'', apPaterno:'', apMaterno:'', nombres:'',
+  genero:'', edad:'', distrito:'', whatsapp:'', correo:'',
+  grado:'', estudiando:'', hijos:'',
+  jornada:'', horario:'',
+  experiencia:'', pretension:''
+};
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function render(){
+  const app = document.getElementById('app');
+  const grados = ['Sin educación formal','Secundaria','Técnico','Técnico trunco','Universitario','Universitario trunco'];
+  const experiencias = ['No tiene','Menor a 3 meses','3 a 6 meses','6 meses a 1 año','Más de un año','Dos años a más'];
+  const distritos = ['Jesús María','Lince','San Isidro','Magdalena','Pueblo Libre','Breña','San Miguel','Surquillo','Miraflores','Lima Cercado','Santiago de Surco','San Borja','La Victoria','Rímac','Barranco','Otro'];
+
+  app.innerHTML = `
+  <div class="intro-card">
+    Gracias por tu interés en unirte a <strong>${NOMBRE_NEGOCIO}</strong>. Estamos en búsqueda de personas apasionadas, comprometidas y con ganas de crecer. Completa este formulario con tus datos para que podamos conocerte mejor.
+    <br><br>
+    Al enviar este formulario, autorizas a ${NOMBRE_NEGOCIO} a utilizar tus datos personales exclusivamente para fines de reclutamiento y selección. La información será tratada con absoluta confidencialidad.
+    <br><br>
+    <em>No solicitamos pagos ni transferencias para acceder a ninguna oportunidad laboral.</em>
+  </div>
+
+  <div id="errBox" class="err"></div>
+
+  <!-- DATOS PERSONALES -->
+  <div class="section">
+    <div class="field">
+      <label class="qlabel">TIPO DE DOCUMENTO <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt ${F.tipoDoc==='DNI'?'sel':''}" onclick="setF('tipoDoc','DNI')">
+          <span class="radio"></span> DNI
+        </label>
+        <label class="opt ${F.tipoDoc==='CE'?'sel':''}" onclick="setF('tipoDoc','CE')">
+          <span class="radio"></span> Carné de extranjería (CE)
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="qlabel">NÚMERO DE DOCUMENTO <span class="req">*</span></label>
+      <input type="text" inputmode="numeric" placeholder="Ej. 74581236" value="${F.numDoc}" oninput="setF('numDoc',this.value)">
+    </div>
+    <div class="field">
+      <label class="qlabel">APELLIDO PATERNO <span class="req">*</span></label>
+      <input type="text" placeholder="Tu respuesta" value="${F.apPaterno}" oninput="setF('apPaterno',this.value)">
+    </div>
+    <div class="field">
+      <label class="qlabel">APELLIDO MATERNO <span class="req">*</span></label>
+      <input type="text" placeholder="Tu respuesta" value="${F.apMaterno}" oninput="setF('apMaterno',this.value)">
+    </div>
+    <div class="field">
+      <label class="qlabel">NOMBRES COMPLETOS <span class="req">*</span></label>
+      <input type="text" placeholder="Tu respuesta" value="${F.nombres}" oninput="setF('nombres',this.value)">
+    </div>
+    <div class="field">
+      <label class="qlabel">GÉNERO <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt ${F.genero==='Femenino'?'sel':''}" onclick="setF('genero','Femenino')">
+          <span class="radio"></span> Femenino
+        </label>
+        <label class="opt ${F.genero==='Masculino'?'sel':''}" onclick="setF('genero','Masculino')">
+          <span class="radio"></span> Masculino
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="qlabel">EDAD <span class="req">*</span></label>
+      <input type="number" inputmode="numeric" min="18" max="70" placeholder="Ej. 24" value="${F.edad}" oninput="setF('edad',this.value)">
+    </div>
+    <div class="field">
+      <label class="qlabel">DISTRITO DE RESIDENCIA <span class="req">*</span></label>
+      <select onchange="setF('distrito',this.value)">
+        <option value="">-- Selecciona --</option>
+        ${distritos.map(d=>`<option value="${d}" ${F.distrito===d?'selected':''}>${d}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field">
+      <label class="qlabel">NÚMERO DE WHATSAPP <span class="req">*</span></label>
+      <input type="tel" inputmode="numeric" placeholder="Ej. 987654321" value="${F.whatsapp}" oninput="setF('whatsapp',this.value)">
+    </div>
+    <div class="field">
+      <label class="qlabel">CORREO ELECTRÓNICO <span class="req">*</span></label>
+      <input type="email" inputmode="email" placeholder="tucorreo@gmail.com" value="${F.correo}" oninput="setF('correo',this.value)">
+    </div>
+  </div>
+
+  <!-- EDUCACIÓN Y FAMILIA -->
+  <div class="section">
+    <div class="field">
+      <label class="qlabel">GRADO DE INSTRUCCIÓN <span class="req">*</span></label>
+      <select onchange="setF('grado',this.value)">
+        <option value="">-- Selecciona --</option>
+        ${grados.map(g=>`<option value="${g}" ${F.grado===g?'selected':''}>${g}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field">
+      <label class="qlabel">¿SE ENCUENTRA ESTUDIANDO ACTUALMENTE? <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt ${F.estudiando==='Sí'?'sel':''}" onclick="setF('estudiando','Sí')">
+          <span class="radio"></span> Sí
+        </label>
+        <label class="opt ${F.estudiando==='No'?'sel':''}" onclick="setF('estudiando','No')">
+          <span class="radio"></span> No
+        </label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="qlabel">¿TIENE HIJOS MENORES DE EDAD? <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt ${F.hijos==='Sí'?'sel':''}" onclick="setF('hijos','Sí')">
+          <span class="radio"></span> Sí
+        </label>
+        <label class="opt ${F.hijos==='No'?'sel':''}" onclick="setF('hijos','No')">
+          <span class="radio"></span> No
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- JORNADA LABORAL -->
+  <div class="section">
+    <div class="field">
+      <label class="qlabel">INDICAR EL TIPO DE JORNADA LABORAL <span class="req">*</span></label>
+      <div class="opts">
+        <label class="opt ${F.jornada==='Full time'?'sel':''}" onclick="setF('jornada','Full time')">
+          <span class="radio"></span> Full time (tiempo completo)
+        </label>
+        <label class="opt ${F.jornada==='Part time'?'sel':''}" onclick="setF('jornada','Part time')">
+          <span class="radio"></span> Part time (tiempo parcial)
+        </label>
+      </div>
+      ${F.jornada ? `
+        <div class="schedule-group">
+          <div class="glabel">Selecciona tu horario disponible</div>
+          <div class="opts">
+            ${JORNADAS[F.jornada].map(h=>`
+              <label class="opt ${F.horario===h?'sel':''}" onclick="setF('horario','${h.replace(/'/g,"\\'")}')">
+                <span class="radio"></span> ${h}
+              </label>`).join('')}
+          </div>
+        </div>` : ''}
+    </div>
+  </div>
+
+  <!-- EXPERIENCIA Y PRETENSIÓN -->
+  <div class="section">
+    <div class="field">
+      <label class="qlabel">INDICAR TIEMPO DE EXPERIENCIA EN EL PUESTO AL QUE POSTULA <span class="req">*</span></label>
+      <select onchange="setF('experiencia',this.value)">
+        <option value="">-- Selecciona --</option>
+        ${experiencias.map(e=>`<option value="${e}" ${F.experiencia===e?'selected':''}>${e}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field">
+      <label class="qlabel">INDICAR PRETENSIÓN SALARIAL (S/) <span class="req">*</span></label>
+      <input type="number" inputmode="numeric" step="50" placeholder="Ej. 1400" value="${F.pretension}" oninput="setF('pretension',this.value)">
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="btn" onclick="enviarFormulario()">📤 Enviar postulación</button>
+  </div>
+  `;
+}
+
+/* ============================================================
+   FUNCIONES
+   ============================================================ */
+function setF(campo, valor){
+  F[campo] = valor;
+  // Si cambia la jornada, resetear horario
+  if(campo === 'jornada' && valor !== F.horario?.jornadaAnterior){
+    F.horario = '';
+  }
+  render();
+  // Mantener scroll al campo que se estaba editando (excepto en inputs de texto)
+  if(campo === 'jornada'){
+    setTimeout(()=>{
+      const sched = document.querySelector('.schedule-group');
+      if(sched) sched.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 100);
+  }
+}
+
+function validar(){
+  const faltantes = [];
+  if(!F.tipoDoc) faltantes.push('Tipo de documento');
+  if(!F.numDoc || F.numDoc.length < 6) faltantes.push('Número de documento');
+  if(!F.apPaterno || F.apPaterno.length < 2) faltantes.push('Apellido paterno');
+  if(!F.apMaterno || F.apMaterno.length < 2) faltantes.push('Apellido materno');
+  if(!F.nombres || F.nombres.length < 2) faltantes.push('Nombres');
+  if(!F.genero) faltantes.push('Género');
+  if(!F.edad || +F.edad < 18 || +F.edad > 70) faltantes.push('Edad válida (18-70)');
+  if(!F.distrito) faltantes.push('Distrito de residencia');
+  if(!F.whatsapp || F.whatsapp.replace(/\D/g,'').length < 9) faltantes.push('Número de WhatsApp');
+  if(!F.correo || !/^\S+@\S+\.\S+$/.test(F.correo)) faltantes.push('Correo electrónico válido');
+  if(!F.grado) faltantes.push('Grado de instrucción');
+  if(!F.estudiando) faltantes.push('¿Está estudiando?');
+  if(!F.hijos) faltantes.push('¿Tiene hijos menores?');
+  if(!F.jornada) faltantes.push('Tipo de jornada laboral');
+  if(!F.horario) faltantes.push('Horario disponible');
+  if(!F.experiencia) faltantes.push('Tiempo de experiencia');
+  if(!F.pretension || +F.pretension <= 0) faltantes.push('Pretensión salarial');
+  return faltantes;
+}
+
+function enviarFormulario(){
+  const faltantes = validar();
+  const errBox = document.getElementById('errBox');
+
+  if(faltantes.length){
+    errBox.innerHTML = '⚠️ Completa los siguientes campos antes de enviar:<br>• ' + faltantes.join('<br>• ');
+    errBox.classList.add('show');
+    errBox.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  errBox.classList.remove('show');
+
+  // Guardar localmente
+  const registro = {
+    ...F,
+    fecha: new Date().toISOString(),
+    negocio: NOMBRE_NEGOCIO
+  };
+  try{
+    const lista = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+    lista.push(registro);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+  }catch(e){ console.warn(e); }
+
+  // Generar mensaje de WhatsApp
+  const nombreCompleto = `${F.apPaterno} ${F.apMaterno}, ${F.nombres}`;
+  const waMsg =
+`Hola ${NOMBRE_NEGOCIO} 👋
+
+Envié mi postulación con estos datos:
+
+📄 *Documento:* ${F.tipoDoc} ${F.numDoc}
+👤 *Nombre:* ${nombreCompleto}
+⚧ *Género:* ${F.genero}
+🎂 *Edad:* ${F.edad} años
+📍 *Distrito:* ${F.distrito}
+📱 *WhatsApp:* ${F.whatsapp}
+📧 *Correo:* ${F.correo}
+🎓 *Grado:* ${F.grado}
+📚 *Estudiando:* ${F.estudiando}
+👶 *Hijos menores:* ${F.hijos}
+
+🕐 *Jornada:* ${F.jornada}
+⏰ *Horario:* ${F.horario}
+💼 *Experiencia:* ${F.experiencia}
+💰 *Pretensión:* S/ ${F.pretension}
+
+Quedo atento(a) a la siguiente etapa del proceso. ¡Gracias!`;
+
+  const waUrl = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
+
+  // Mostrar pantalla de éxito
+  const app = document.getElementById('app');
+  const footer = document.getElementById('footer');
+  footer.style.display = 'none';
+  app.innerHTML = `
+    <div class="success">
+      <span class="success-icon">🎉</span>
+      <h2>¡Datos registrados!</h2>
+      <p>Ahora envía tu postulación a ${NOMBRE_NEGOCIO} con un solo toque. Se abrirá WhatsApp con todos tus datos listos.</p>
+      <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-wa">📱 Enviar por WhatsApp</a>
+      <p style="margin-top:16px;font-size:12px;color:#9ca3af">Si el botón no abre WhatsApp, escríbenos al ${STORE_WHATSAPP.slice(2)} y envíanos tus datos manualmente.</p>
+    </div>
+  `;
+  window.scrollTo({top:0, behavior:'smooth'});
+  // Auto-abrir WhatsApp después de 600 ms
+  setTimeout(()=>{ window.location.href = waUrl; }, 600);
+}
+
+/* ============================================================
+   INICIALIZAR
+   ============================================================ */
+render();
+</script>
+</body>
+</html>
