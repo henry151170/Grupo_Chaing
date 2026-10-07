@@ -23,22 +23,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .topbar h1{font-size:18px;font-weight:800}
 .topbar .sub{font-size:12px;color:#94a3b8;margin-top:2px}
 .topbar .logout{background:rgba(255,255,255,.1);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
-.wrap{max-width:1400px;margin:0 auto;padding:20px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}
+.wrap{max-width:1500px;margin:0 auto;padding:20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px}
 .stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .stat-card .lbl{font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.stat-card .num{font-size:28px;font-weight:800;color:#0f172a}
+.stat-card .num{font-size:26px;font-weight:800;color:#0f172a}
 .stat-card .det{font-size:11px;color:#9ca3af;margin-top:2px}
 .filters{background:#fff;border-radius:14px;padding:16px;margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.filters select,.filters input{padding:9px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;background:#fafafa;color:#1f2937;min-width:140px}
+.filters select,.filters input{padding:9px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;background:#fafafa;color:#1f2937;min-width:130px}
 .filters select:focus,.filters input:focus{outline:none;border-color:#2563eb;background:#fff}
 .filters .btn{padding:9px 16px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;background:#2563eb;color:#fff}
 .filters .btn.ghost{background:#f3f4f6;color:#374151}
 .table-wrap{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:1100px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:1300px}
 th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #f3f4f6;white-space:nowrap}
 th{background:#f9fafb;font-weight:700;color:#374151;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
 tr:hover td{background:#fafbfc}
+tr.tiene-entrevista td{background:#f0f9ff}
+tr.tiene-entrevista:hover td{background:#e0f2fe}
 .badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;text-transform:uppercase}
 .badge.gmobile{background:#dbeafe;color:#1e40af}
 .badge.safri{background:#fce7f3;color:#9d174d}
@@ -47,28 +49,45 @@ tr:hover td{background:#fafbfc}
 .badge.entrevista{background:#dbeafe;color:#1e40af}
 .badge.contratado{background:#d1fae5;color:#065f46}
 .badge.descartado{background:#f3f4f6;color:#6b7280}
+.interview-pill{display:inline-block;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;background:#dbeafe;color:#1e40af;border:1px solid #93c5fd}
+.interview-pill.empty{background:#f3f4f6;color:#9ca3af;border-color:#e5e7eb;font-weight:600}
 .btn-view{padding:5px 10px;border:1px solid #e5e7eb;background:#fff;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;color:#2563eb;font-family:inherit}
 .btn-view:hover{background:#eff6ff;border-color:#2563eb}
 .empty{text-align:center;padding:60px 20px;color:#9ca3af;font-size:14px}
 .empty .icon{font-size:64px;margin-bottom:12px;display:block;opacity:.5}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:100;overflow-y:auto}
 .modal.open{display:flex}
-.modal-card{background:#fff;border-radius:16px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
-.modal-head{padding:20px 24px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;border-radius:16px 16px 0 0}
+.modal-card{background:#fff;border-radius:16px;max-width:620px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
+.modal-head{padding:20px 24px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;border-radius:16px 16px 0 0;z-index:2}
 .modal-head h2{font-size:16px;color:#0f172a;font-weight:800}
 .modal-head .close{background:#f3f4f6;border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:#6b7280}
 .modal-body{padding:20px 24px}
-.modal-body .row{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #f9fafb;font-size:13px}
+.interview-section{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #2563eb;border-radius:12px;padding:16px;margin-bottom:18px}
+.interview-title{font-size:13px;font-weight:800;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.interview-form{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}
+.interview-form .inp{display:flex;flex-direction:column;gap:4px}
+.interview-form .inp label{font-size:11px;font-weight:700;color:#1e40af;text-transform:uppercase;letter-spacing:.5px}
+.interview-form .inp input{padding:10px 12px;border:1.5px solid #93c5fd;border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:#1f2937}
+.interview-form .inp input:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.btn-save-entrevista{padding:10px 18px;border:none;border-radius:8px;background:#2563eb;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn-save-entrevista:hover{background:#1e40af}
+.btn-save-entrevista:disabled{opacity:.6;cursor:not-allowed}
+.entrevista-status{margin-top:10px;font-size:12px;font-weight:700;display:none}
+.entrevista-status.ok{display:block;color:#065f46}
+.entrevista-status.err{display:block;color:#991b1b}
+.section-label{font-size:11px;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px;padding-bottom:6px;border-bottom:2px solid #f3f4f6}
+.modal-body .row{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #f9fafb;font-size:13px}
 .modal-body .row:last-child{border-bottom:none}
 .modal-body .row .k{font-weight:700;color:#6b7280}
 .modal-body .row .v{color:#1f2937}
-.modal-foot{padding:16px 24px;border-top:1px solid #f3f4f6;display:flex;gap:10px;justify-content:flex-end;background:#f9fafb;border-radius:0 0 16px 16px}
+.modal-foot{padding:16px 24px;border-top:1px solid #f3f4f6;display:flex;gap:10px;justify-content:flex-end;background:#f9fafb;border-radius:0 0 16px 16px;position:sticky;bottom:0}
 .modal-foot select{padding:9px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:inherit;background:#fff}
 .modal-foot button{padding:9px 18px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
 .modal-foot .save{background:#2563eb;color:#fff}
 .loading{text-align:center;padding:60px 20px;color:#6b7280}
 .loading .spinner{width:40px;height:40px;border:4px solid #e5e7eb;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:560px){.interview-form{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -116,7 +135,12 @@ tr:hover td{background:#fafbfc}
       <select id="fDistrito" onchange="applyFilters()">
         <option value="">Todos los distritos</option>
       </select>
-      <input type="text" id="fBuscar" placeholder="Buscar por nombre o DNI..." oninput="applyFilters()">
+      <select id="fEntrevista" onchange="applyFilters()">
+        <option value="">Todos</option>
+        <option value="con">Con entrevista agendada</option>
+        <option value="sin">Sin agendar</option>
+      </select>
+      <input type="text" id="fBuscar" placeholder="Buscar nombre o DNI..." oninput="applyFilters()">
       <button class="btn ghost" onclick="clearFilters()">Limpiar</button>
       <button class="btn" onclick="exportCSV()">⬇️ CSV</button>
       <button class="btn ghost" onclick="loadData()">🔄 Recargar</button>
@@ -182,8 +206,7 @@ async function loadData(){
     if(!json.ok) throw new Error(json.error || 'Error al cargar');
     const all = json.data || [];
     if(all.length < 2){
-      DATA = [];
-      HEADERS = all[0] || [];
+      DATA = []; HEADERS = all[0] || [];
     } else {
       HEADERS = all[0];
       DATA = all.slice(1).map(row=>{
@@ -207,13 +230,15 @@ function renderStats(){
   const nuevos = DATA.filter(r=>r.Estado==='Nuevo').length;
   const entrevista = DATA.filter(r=>r.Estado==='Entrevista').length;
   const contratados = DATA.filter(r=>r.Estado==='Contratado').length;
+  const conEntrevista = DATA.filter(r=>r['Entrevista Fecha'] && r['Entrevista Hora']).length;
   const gmobile = DATA.filter(r=>r.Negocio==='G Mobile').length;
   const safri = DATA.filter(r=>r.Negocio==='Safri').length;
   const minimarket = DATA.filter(r=>r.Negocio==='Mini Market').length;
   document.getElementById('stats').innerHTML = `
     <div class="stat-card"><div class="lbl">Total</div><div class="num">${total}</div><div class="det">postulantes</div></div>
     <div class="stat-card"><div class="lbl">Nuevos</div><div class="num" style="color:#d97706">${nuevos}</div><div class="det">por revisar</div></div>
-    <div class="stat-card"><div class="lbl">En entrevista</div><div class="num" style="color:#2563eb">${entrevista}</div><div class="det">en proceso</div></div>
+    <div class="stat-card"><div class="lbl">Entrevista</div><div class="num" style="color:#2563eb">${entrevista}</div><div class="det">en proceso</div></div>
+    <div class="stat-card"><div class="lbl">Con fecha</div><div class="num" style="color:#7c3aed">${conEntrevista}</div><div class="det">agendados</div></div>
     <div class="stat-card"><div class="lbl">Contratados</div><div class="num" style="color:#059669">${contratados}</div><div class="det">ya trabajando</div></div>
     <div class="stat-card"><div class="lbl">G Mobile</div><div class="num" style="color:#1e40af">${gmobile}</div><div class="det">postulaciones</div></div>
     <div class="stat-card"><div class="lbl">Safri</div><div class="num" style="color:#9d174d">${safri}</div><div class="det">postulaciones</div></div>
@@ -227,17 +252,29 @@ function renderDistritos(){
   sel.innerHTML = '<option value="">Todos los distritos</option>' + distritos.map(d=>`<option value="${d}" ${val===d?'selected':''}>${d}</option>`).join('');
 }
 
+function formatFechaEntrevista(fecha, hora){
+  if(!fecha || !hora) return '';
+  const d = new Date(fecha + 'T' + hora);
+  if(isNaN(d)) return `${fecha} ${hora}`;
+  const dias = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return `${dias[d.getDay()]} ${d.getDate()} ${meses[d.getMonth()]} · ${hora}`;
+}
+
 function applyFilters(){
   const fNegocio = document.getElementById('fNegocio').value;
   const fJornada = document.getElementById('fJornada').value;
   const fEstado = document.getElementById('fEstado').value;
   const fDistrito = document.getElementById('fDistrito').value;
+  const fEntrevista = document.getElementById('fEntrevista').value;
   const fBuscar = document.getElementById('fBuscar').value.toLowerCase().trim();
   let filtered = DATA.filter(r=>{
     if(fNegocio && r.Negocio !== fNegocio) return false;
     if(fJornada && r.Jornada !== fJornada) return false;
     if(fEstado && r.Estado !== fEstado) return false;
     if(fDistrito && r.Distrito !== fDistrito) return false;
+    if(fEntrevista === 'con' && !(r['Entrevista Fecha'] && r['Entrevista Hora'])) return false;
+    if(fEntrevista === 'sin' && (r['Entrevista Fecha'] && r['Entrevista Hora'])) return false;
     if(fBuscar){
       const txt = `${r.Nombres||''} ${r['Apellido Paterno']||''} ${r['Apellido Materno']||''} ${r['N° Doc']||''} ${r.WhatsApp||''}`.toLowerCase();
       if(!txt.includes(fBuscar)) return false;
@@ -255,7 +292,7 @@ function renderTable(rows){
   }
   wrap.innerHTML = `<table><thead><tr>
     <th>Fecha</th><th>Negocio</th><th>Nombre</th><th>Edad</th><th>Distrito</th>
-    <th>WhatsApp</th><th>Jornada</th><th>Horario</th><th>Pretensión</th><th>Estado</th><th></th>
+    <th>WhatsApp</th><th>Jornada</th><th>📅 Entrevista</th><th>Estado</th><th></th>
   </tr></thead><tbody>
     ${rows.map(r=>{
       const idx = DATA.indexOf(r);
@@ -263,7 +300,9 @@ function renderTable(rows){
       const fecha = r.Fecha ? new Date(r.Fecha).toLocaleDateString('es-PE') : '-';
       const negocioClass = (r.Negocio||'').toLowerCase().replace(/\s+/g,'');
       const estadoClass = (r.Estado||'nuevo').toLowerCase();
-      return `<tr>
+      const tieneEntrevista = r['Entrevista Fecha'] && r['Entrevista Hora'];
+      const entrevistaTxt = tieneEntrevista ? formatFechaEntrevista(r['Entrevista Fecha'], r['Entrevista Hora']) : 'Sin agendar';
+      return `<tr class="${tieneEntrevista?'tiene-entrevista':''}">
         <td>${fecha}</td>
         <td><span class="badge ${negocioClass}">${r.Negocio||'-'}</span></td>
         <td><b>${nombre||'-'}</b></td>
@@ -271,8 +310,7 @@ function renderTable(rows){
         <td>${r.Distrito||'-'}</td>
         <td>${r.WhatsApp||'-'}</td>
         <td>${r.Jornada||'-'}</td>
-        <td>${r.Horario||'-'}</td>
-        <td>S/ ${r['Pretensión']||'-'}</td>
+        <td><span class="interview-pill ${tieneEntrevista?'':'empty'}">${tieneEntrevista?'📅 ':'— '}${entrevistaTxt}</span></td>
         <td><span class="badge ${estadoClass}">${r.Estado||'Nuevo'}</span></td>
         <td><button class="btn-view" onclick="openModal(${idx})">Ver</button></td>
       </tr>`;
@@ -285,6 +323,7 @@ function clearFilters(){
   document.getElementById('fJornada').value = '';
   document.getElementById('fEstado').value = '';
   document.getElementById('fDistrito').value = '';
+  document.getElementById('fEntrevista').value = '';
   document.getElementById('fBuscar').value = '';
   applyFilters();
 }
@@ -295,9 +334,31 @@ function openModal(idx){
   const nombre = `${r.Nombres||''} ${r['Apellido Paterno']||''} ${r['Apellido Materno']||''}`.trim();
   document.getElementById('modalTitle').textContent = nombre || 'Postulante';
   document.getElementById('modalEstado').value = r.Estado || 'Nuevo';
+  
+  const fechaVal = r['Entrevista Fecha'] || '';
+  const horaVal = r['Entrevista Hora'] || '';
+  const tieneEntrevista = fechaVal && horaVal;
+  
   document.getElementById('modalBody').innerHTML = `
+    <div class="interview-section">
+      <div class="interview-title">📅 Programar entrevista</div>
+      <div class="interview-form">
+        <div class="inp">
+          <label>Fecha</label>
+          <input type="date" id="entrevistaFecha" value="${fechaVal}">
+        </div>
+        <div class="inp">
+          <label>Hora</label>
+          <input type="time" id="entrevistaHora" value="${horaVal}">
+        </div>
+        <button class="btn-save-entrevista" id="btnSaveEnt" onclick="saveEntrevista()">Guardar</button>
+      </div>
+      <div class="entrevista-status" id="entrevistaStatus">${tieneEntrevista ? '✅ Entrevista agendada: '+formatFechaEntrevista(fechaVal, horaVal) : ''}</div>
+    </div>
+    
+    <div class="section-label">📋 Datos del postulante</div>
     <div class="row"><span class="k">Negocio</span><span class="v">${r.Negocio||'-'}</span></div>
-    <div class="row"><span class="k">Fecha</span><span class="v">${r.Fecha ? new Date(r.Fecha).toLocaleString('es-PE') : '-'}</span></div>
+    <div class="row"><span class="k">Fecha postulación</span><span class="v">${r.Fecha ? new Date(r.Fecha).toLocaleString('es-PE') : '-'}</span></div>
     <div class="row"><span class="k">Documento</span><span class="v">${r['Tipo Doc']||''} ${r['N° Doc']||''}</span></div>
     <div class="row"><span class="k">Nombre</span><span class="v"><b>${nombre}</b></span></div>
     <div class="row"><span class="k">Género</span><span class="v">${r.Género||'-'}</span></div>
@@ -316,6 +377,45 @@ function openModal(idx){
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');currentRowIndex=null;}
 document.getElementById('modal').addEventListener('click', e=>{if(e.target.id==='modal')closeModal();});
+
+async function saveEntrevista(){
+  if(currentRowIndex === null) return;
+  const btn = document.getElementById('btnSaveEnt');
+  const status = document.getElementById('entrevistaStatus');
+  const fecha = document.getElementById('entrevistaFecha').value;
+  const hora = document.getElementById('entrevistaHora').value;
+  
+  if(!fecha || !hora){
+    status.className = 'entrevista-status err';
+    status.textContent = '⚠️ Debes elegir fecha y hora';
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.textContent = 'Guardando...';
+  const rowNumber = currentRowIndex + 2;
+  
+  try{
+    await fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'text/plain'},
+      body: JSON.stringify({action:'updateEntrevista', row: rowNumber, fecha: fecha, hora: hora})
+    });
+    DATA[currentRowIndex]['Entrevista Fecha'] = fecha;
+    DATA[currentRowIndex]['Entrevista Hora'] = hora;
+    status.className = 'entrevista-status ok';
+    status.textContent = '✅ Entrevista agendada: ' + formatFechaEntrevista(fecha, hora);
+    renderStats();
+    applyFilters();
+  }catch(e){
+    status.className = 'entrevista-status err';
+    status.textContent = '⚠️ Error al guardar. Intenta de nuevo.';
+  }finally{
+    btn.disabled = false;
+    btn.textContent = 'Guardar';
+  }
+}
 
 async function saveEstado(){
   if(currentRowIndex === null) return;
