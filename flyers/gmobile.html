@@ -2,94 +2,187 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Flyer G Mobile</title>
+<title>Flyer GeekShop - G Mobile</title>
 <style>
 @page{size:A4;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#e5e7eb;padding:20px;display:flex;justify-content:center;align-items:flex-start;min-height:100vh}
-.flyer{width:600px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-.header{background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;padding:40px 30px 34px;text-align:center;position:relative;overflow:hidden}
-.header::before{content:"";position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(255,255,255,.08);border-radius:50%}
-.header .brand{display:inline-block;background:rgba(255,255,255,.22);padding:6px 18px;border-radius:99px;font-size:13px;font-weight:700;letter-spacing:2px;margin-bottom:16px;position:relative;z-index:2}
-.header .icon{font-size:80px;line-height:1;position:relative;z-index:2;margin-bottom:8px}
-.header h1{font-size:52px;line-height:1;font-weight:900;letter-spacing:-1.5px;position:relative;z-index:2;margin-bottom:8px}
-.header h1 span{color:#fef08a}
-.header .sub{font-size:16px;font-weight:500;opacity:.95;position:relative;z-index:2}
-.body{padding:30px 32px}
-.section{margin-bottom:20px}
-.section-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#2563eb;margin-bottom:12px}
-.section-title::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,#2563eb,#dbeafe);border-radius:2px}
-.list{list-style:none;display:grid;gap:8px}
-.list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#1f2937;line-height:1.4}
-.list li::before{content:"✓";flex-shrink:0;width:22px;height:22px;background:#dbeafe;color:#2563eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;margin-top:1px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.benefit{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #bfdbfe;border-radius:12px;padding:12px;text-align:center}
-.benefit .ic{font-size:24px;display:block;margin-bottom:4px}
-.benefit .txt{font-size:12px;font-weight:700;color:#1e40af;line-height:1.3}
-.qr-zone{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:24px;border-radius:16px;margin-top:8px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden}
-.qr-zone::before{content:"";position:absolute;top:-40px;left:-40px;width:140px;height:140px;background:rgba(37,99,235,.15);border-radius:50%}
-.qr-img{background:#fff;padding:10px;border-radius:12px;flex-shrink:0;position:relative}
-.qr-img img{display:block;width:130px;height:130px}
-.qr-info{flex:1;position:relative}
-.qr-title{font-size:14px;font-weight:700;color:#93c5fd;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.qr-url{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.3px}
-.qr-hint{font-size:12px;color:#94a3b8;line-height:1.4}
-.footer{background:#f9fafb;padding:16px 24px;text-align:center;border-top:1px solid #e5e7eb;font-size:12px;color:#6b7280}
-.footer b{color:#2563eb}
-@media print{body{background:#fff;padding:0}.flyer{box-shadow:none;border-radius:0}}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;background:#e5e7eb;padding:20px;display:flex;justify-content:center;align-items:flex-start;min-height:100vh}
+.flyer{width:620px;background:#fff;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative}
+
+/* Top banner */
+.top-banner{background:#facc15;padding:10px 20px;text-align:center;font-weight:900;font-size:14px;color:#000;letter-spacing:.5px}
+
+/* Header */
+.header{background:#000;color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:28px;font-weight:900;color:#facc15;letter-spacing:-1px;font-family:'Arial Black',sans-serif}
+.logo span{color:#fff}
+.header-icons{display:flex;gap:14px;align-items:center;font-size:9px;color:#d1d5db;text-align:center;font-weight:700;letter-spacing:.5px}
+.header-icons .ic{display:flex;flex-direction:column;align-items:center;gap:2px}
+.header-icons .ic .em{font-size:20px}
+
+/* Brand badge */
+.brand-badge{position:absolute;top:66px;right:0;background:#facc15;color:#000;font-weight:900;font-size:11px;padding:8px 16px 8px 12px;letter-spacing:.5px;text-transform:uppercase;z-index:5}
+.brand-badge small{display:block;font-size:8px;opacity:.75;font-weight:700;margin-top:2px}
+
+/* Title block */
+.title-block{padding:22px 24px 12px;text-align:center}
+.title-small{font-size:11px;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px}
+.title-big{font-size:46px;font-weight:900;color:#000;line-height:1;letter-spacing:-1.5px;font-family:'Arial Black',sans-serif}
+.title-big .hl{background:#facc15;padding:2px 10px;display:inline-block;transform:skew(-2deg)}
+.title-sub{font-size:14px;color:#374151;margin-top:10px;font-weight:500}
+.location{display:inline-flex;align-items:center;gap:6px;background:#f3f4f6;padding:6px 14px;border-radius:99px;font-size:12px;color:#374151;font-weight:700;margin-top:12px}
+.location .pin{color:#dc2626}
+
+/* Main */
+.main{padding:14px 24px 20px;display:grid;grid-template-columns:1fr 210px;gap:18px;align-items:start}
+
+.info-col{display:flex;flex-direction:column;gap:14px}
+.section-block{padding-left:12px;border-left:4px solid #facc15}
+.section-title{font-size:13px;font-weight:900;color:#000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.section-title .num{background:#facc15;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.section-block ul{list-style:none}
+.section-block ul li{font-size:12px;color:#374151;line-height:1.5;padding:2px 0 2px 14px;position:relative}
+.section-block ul li::before{content:"•";position:absolute;left:2px;color:#facc15;font-weight:900;font-size:14px;line-height:1}
+.section-block ul li b{color:#000}
+
+.right-col{display:flex;flex-direction:column;gap:12px;align-items:center}
+.character-box{background:linear-gradient(135deg,#facc15,#eab308);border-radius:16px;width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.character-box .char{font-size:120px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15))}
+.character-box::before{content:"";position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,.15);border-radius:50%}
+.passion-badge{background:#facc15;color:#000;font-weight:900;font-size:11px;padding:8px 12px;border-radius:8px;text-align:center;letter-spacing:.5px;line-height:1.2;text-transform:uppercase}
+.passion-badge small{display:block;font-size:9px;font-weight:700;margin-top:3px;opacity:.75}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,#16a34a,#15803d);padding:20px 24px;display:flex;align-items:center;gap:16px;color:#fff}
+.cta-icon{background:#25d366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.cta-content{flex:1}
+.cta-title{font-size:22px;font-weight:900;letter-spacing:.5px;margin-bottom:4px;text-transform:uppercase;font-family:'Arial Black',sans-serif}
+.cta-wa{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.cta-wa .num{background:#facc15;color:#000;padding:4px 12px;border-radius:6px;font-weight:900;font-size:16px}
+
+/* QR zone */
+.qr-zone{background:#000;color:#fff;padding:16px 24px;display:flex;align-items:center;gap:16px}
+.qr-box{background:#fff;padding:8px;border-radius:10px;flex-shrink:0;box-shadow:0 4px 12px rgba(250,204,21,.3)}
+.qr-box img{display:block;width:95px;height:95px}
+.qr-info{flex:1}
+.qr-title{font-size:12px;font-weight:900;color:#facc15;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px}
+.qr-url{font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;font-family:'Arial Black',sans-serif}
+.qr-hint{font-size:11px;color:#9ca3af;line-height:1.3}
+
+/* Footer */
+.footer{background:#f9fafb;padding:14px 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;border-top:1px solid #e5e7eb}
+.footer-item{text-align:center;font-size:9px;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;line-height:1.3}
+.footer-item .em{display:block;font-size:22px;margin-bottom:4px}
+
+@media print{body{background:#fff;padding:0}.flyer{box-shadow:none}}
 </style>
 </head>
 <body>
 <div class="flyer">
+
+  <div class="top-banner">
+    💰 SUELDO: BÁSICO + COMISIONES + BONOS
+  </div>
+
   <div class="header">
-    <div class="brand">G MOBILE · JESÚS MARÍA</div>
-    <div class="icon">💻</div>
-    <h1>¡ESTAMOS<br><span>CONTRATANDO!</span></h1>
-    <p class="sub">Vendedor(a) para tienda de accesorios tech</p>
-  </div>
-  <div class="body">
-    <div class="section">
-      <div class="section-title">📋 Funciones</div>
-      <ul class="list">
-        <li>Atención al público y asesoría de productos</li>
-        <li>Venta de accesorios tech</li>
-        <li>Manejo de caja y Yape/Plin</li>
-        <li>Reposición y orden de vitrinas</li>
-      </ul>
-    </div>
-    <div class="section">
-      <div class="section-title">✅ Requisitos</div>
-      <ul class="list">
-        <li>Mayor de 20 años</li>
-        <li>Vivir en Jesús María o distritos cercanos</li>
-        <li>Que te guste conversar con clientes y asesorarlos</li>
-        <li>Responsable, honesto(a) y con ganas de aprender</li>
-      </ul>
-    </div>
-    <div class="section">
-      <div class="section-title">🎁 Ofrecemos</div>
-      <div class="grid2">
-        <div class="benefit"><span class="ic">💰</span><div class="txt">Sueldo según experiencia</div></div>
-        <div class="benefit"><span class="ic">🤝</span><div class="txt">Buen ambiente laboral</div></div>
-        <div class="benefit"><span class="ic">📚</span><div class="txt">Capacitación en productos</div></div>
-        <div class="benefit"><span class="ic">📈</span><div class="txt">Crecimiento interno</div></div>
-      </div>
-    </div>
-    <div class="qr-zone">
-      <div class="qr-img">
-        <img src="qr-gmobile.png" alt="QR">
-      </div>
-      <div class="qr-info">
-        <div class="qr-title">📱 Escanea con tu celular</div>
-        <div class="qr-url">gmobilejm.com/gmobile</div>
-        <div class="qr-hint">O entra desde tu navegador. Formulario online rápido.</div>
-      </div>
+    <div class="logo">Geek<span>Shop</span></div>
+    <div class="header-icons">
+      <div class="ic"><span class="em">📱</span>CELULARES</div>
+      <div class="ic"><span class="em">🎧</span>AUDIO</div>
+      <div class="ic"><span class="em">💻</span>CÓMPUTO</div>
+      <div class="ic"><span class="em">➕</span>MÁS</div>
     </div>
   </div>
+
+  <div class="brand-badge">GEEKSHOP<small>TECNOLOGÍA EN TUS MANOS</small></div>
+
+  <div class="title-block">
+    <div class="title-small">TU MUNDO TECH, SIEMPRE CONTIGO</div>
+    <div class="title-big">SE BUSCA<br><span class="hl">VENDEDOR/A</span></div>
+    <div class="title-sub">Tienda de accesorios de celulares y cómputo</div>
+    <div><span class="location"><span class="pin">📍</span> Jesús María — Lima (Alt. Cdra. 12 Av. Brasil)</span></div>
+  </div>
+
+  <div class="main">
+    <div class="info-col">
+
+      <div class="section-block">
+        <div class="section-title"><span class="num">🕐</span> HORARIOS</div>
+        <ul>
+          <li><b>Full time:</b> 10:00 am - 6:00 pm / 2:00 pm - 10:00 pm</li>
+          <li><b>Part time:</b> 10:00 am - 2:00 pm / 6:00 pm - 10:00 pm</li>
+          <li>Lunes a domingo con 1 día de descanso semanal</li>
+        </ul>
+      </div>
+
+      <div class="section-block">
+        <div class="section-title"><span class="num">✓</span> REQUISITOS</div>
+        <ul>
+          <li>Experiencia en ventas (accesorios tech o similares)</li>
+          <li>Edad: 22 a 45 años</li>
+          <li>Género: Indistinto (M/F)</li>
+          <li>Buena presencia y actitud de servicio</li>
+        </ul>
+      </div>
+
+      <div class="section-block">
+        <div class="section-title"><span class="num">🎁</span> TE OFRECEMOS</div>
+        <ul>
+          <li><b>Sueldo básico</b> mensual</li>
+          <li><b>Comisiones</b> por venta + <b>bonos</b></li>
+          <li>Beneficios de ley según Régimen MYPE</li>
+          <li>Trabajo estable</li>
+        </ul>
+      </div>
+
+      <div class="section-block">
+        <div class="section-title"><span class="num">📋</span> FUNCIONES</div>
+        <ul>
+          <li>Atención y asesoría al cliente</li>
+          <li>Persuadir y cerrar ventas</li>
+          <li>Orden del área</li>
+          <li>Reposición de productos</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="right-col">
+      <div class="character-box">
+        <span class="char">🧑‍💼</span>
+      </div>
+      <div class="passion-badge">
+        Pasión por<br>la tecnología
+        <small>¡Únete al equipo!</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-icon">💬</div>
+    <div class="cta-content">
+      <div class="cta-title">¡Postula hoy mismo!</div>
+      <div class="cta-wa">WhatsApp: <span class="num">985 659 774</span></div>
+    </div>
+  </div>
+
+  <div class="qr-zone">
+    <div class="qr-box">
+      <img src="qr-gmobile.png" alt="QR G Mobile">
+    </div>
+    <div class="qr-info">
+      <div class="qr-title">📱 Escanea y postula online</div>
+      <div class="qr-url">gmobilejm.com/gmobile</div>
+      <div class="qr-hint">Llena el formulario desde tu celular en menos de 2 minutos.</div>
+    </div>
+  </div>
+
   <div class="footer">
-    <b>G MOBILE · JESÚS MARÍA, LIMA</b><br>
-    WhatsApp: 985 659 774
+    <div class="footer-item"><span class="em">📱</span>DISPOSITIVOS<br>QUE TE MUEVEN</div>
+    <div class="footer-item"><span class="em">🎧</span>IDEAS<br>QUE SUENAN</div>
+    <div class="footer-item"><span class="em">💻</span>HERRAMIENTAS<br>PARA UN GRAN MAÑANA</div>
   </div>
+
 </div>
 </body>
 </html>
