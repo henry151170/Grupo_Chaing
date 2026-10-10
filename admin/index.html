@@ -45,6 +45,7 @@ tr.tiene-entrevista:hover td{background:#e0f2fe}
 .badge.gmobile{background:#dbeafe;color:#1e40af}
 .badge.safri{background:#fce7f3;color:#9d174d}
 .badge.minimarket{background:#d1fae5;color:#065f46}
+.badge.centronaturistalakshmi{background:#ecfccb;color:#3f6212}
 .badge.nuevo{background:#fef3c7;color:#92400e}
 .badge.entrevista{background:#dbeafe;color:#1e40af}
 .badge.contratado{background:#d1fae5;color:#065f46}
@@ -119,6 +120,7 @@ tr.tiene-entrevista:hover td{background:#e0f2fe}
         <option value="G Mobile">G Mobile</option>
         <option value="Safri">Safri</option>
         <option value="Mini Market">Mini Market</option>
+        <option value="Centro Naturista Lakshmi">Centro Naturista Lakshmi</option>
       </select>
       <select id="fJornada" onchange="applyFilters()">
         <option value="">Toda jornada</option>
@@ -234,6 +236,7 @@ function renderStats(){
   const gmobile = DATA.filter(r=>r.Negocio==='G Mobile').length;
   const safri = DATA.filter(r=>r.Negocio==='Safri').length;
   const minimarket = DATA.filter(r=>r.Negocio==='Mini Market').length;
+  const lakshmi = DATA.filter(r=>r.Negocio==='Centro Naturista Lakshmi').length;
   document.getElementById('stats').innerHTML = `
     <div class="stat-card"><div class="lbl">Total</div><div class="num">${total}</div><div class="det">postulantes</div></div>
     <div class="stat-card"><div class="lbl">Nuevos</div><div class="num" style="color:#d97706">${nuevos}</div><div class="det">por revisar</div></div>
@@ -242,7 +245,8 @@ function renderStats(){
     <div class="stat-card"><div class="lbl">Contratados</div><div class="num" style="color:#059669">${contratados}</div><div class="det">ya trabajando</div></div>
     <div class="stat-card"><div class="lbl">G Mobile</div><div class="num" style="color:#1e40af">${gmobile}</div><div class="det">postulaciones</div></div>
     <div class="stat-card"><div class="lbl">Safri</div><div class="num" style="color:#9d174d">${safri}</div><div class="det">postulaciones</div></div>
-    <div class="stat-card"><div class="lbl">Mini Market</div><div class="num" style="color:#065f46">${minimarket}</div><div class="det">postulaciones</div></div>`;
+    <div class="stat-card"><div class="lbl">Mini Market</div><div class="num" style="color:#065f46">${minimarket}</div><div class="det">postulaciones</div></div>
+    <div class="stat-card"><div class="lbl">Lakshmi</div><div class="num" style="color:#65a30d">${lakshmi}</div><div class="det">postulaciones</div></div>`;
 }
 
 function renderDistritos(){
