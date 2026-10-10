@@ -10,7 +10,8 @@
   --primary:#7c3aed;--primary-dark:#5b21b6;
   --gmobile:#2563eb;--gmobile-dark:#1e40af;
   --safri:#db2777;--safri-dark:#9d174d;
-  --mini:#059669;--mini-dark:#065f46;
+  --mini:#059669;--mini-dark:#065f46;  
+  --lakshmi:#65a30d;--lakshmi-dark:#3f6212;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -58,6 +59,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;c
 .biz-header.gmobile{background:linear-gradient(135deg,var(--gmobile),var(--gmobile-dark))}
 .biz-header.safri{background:linear-gradient(135deg,var(--safri),var(--safri-dark))}
 .biz-header.mini{background:linear-gradient(135deg,var(--mini),var(--mini-dark))}
+.biz-header.lakshmi{background:linear-gradient(135deg,var(--lakshmi),var(--lakshmi-dark))}
 .biz-header::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:rgba(255,255,255,.1);border-radius:50%}
 .biz-icon{font-size:64px;line-height:1;margin-bottom:10px;position:relative;z-index:1;filter:drop-shadow(0 6px 12px rgba(0,0,0,.15))}
 .biz-header h3{font-size:22px;color:#fff;font-weight:900;letter-spacing:-.5px;position:relative;z-index:1}
@@ -76,6 +78,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;c
 .biz-card:nth-child(2) .btn-biz.hire:hover{background:var(--safri-dark)}
 .biz-card:nth-child(3) .btn-biz.hire{background:var(--mini)}
 .biz-card:nth-child(3) .btn-biz.hire:hover{background:var(--mini-dark)}
+.biz-card:nth-child(4) .btn-biz.hire{background:var(--lakshmi)}
+.biz-card:nth-child(4) .btn-biz.hire:hover{background:var(--lakshmi-dark)}  
 .btn-biz:hover{transform:translateY(-2px)}
 
 /* BENEFICIOS */
@@ -216,7 +220,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;c
           </div>
         </div>
       </div>
-
+      <div class="biz-card">
+        <div class="biz-header lakshmi">
+          <div class="biz-icon">🌿</div>
+          <h3>Centro Naturista Lakshmi</h3>
+          <div class="tag">Productos naturales y bienestar</div>
+        </div>
+        <div class="biz-body">
+          <p class="biz-desc">Productos naturales, suplementos, hierbas medicinales y todo para tu bienestar. Calidad y asesoría personalizada.</p>
+          <ul class="biz-list">
+            <li>Productos naturales y orgánicos</li>
+            <li>Suplementos vitamínicos</li>
+            <li>Hierbas medicinales</li>
+            <li>Asesoría personalizada</li>
+          </ul>
+          <div class="biz-actions">
+            <a href="lakshmi/" class="btn-biz hire">💼 Trabaja con nosotros</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
